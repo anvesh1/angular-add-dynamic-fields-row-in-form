@@ -19,40 +19,52 @@ export class UserListComponent implements OnInit {
     this.renderUser();
   }
 
-  initialForm(data): FormGroup {
+  // Add form field row with initial data
+  formRowWithData(data): FormGroup {
     return this.fb.group({    
-      name: data.name,  
+      name: [data.name, Validators.required],  
       email: data.email,
       mobNumber: data.mobNumber
     });
   }
 
-  initialData = [
-    {name : "pid1", email : "sourceTable1", mobNumber:  "mapping1"},
-    {name : "pid2", email : "sourceTable2", mobNumber:  "mapping2"},
-    {name : "pid3", email : "sourceTable3", mobNumber:  "mapping3"}
-  ]
-  
-  addUser() {
-    const control = <FormArray>this.userForm.get('users');
-    let data = {name : "pid1", email : "sourceTable1", mobNumber:  "mapping1"};
-
-    control.push(this.initialForm(data));  
+  // Add form field row with no data
+  formRowWithOutData(): FormGroup {
+    return this.fb.group({    
+      name: ['', Validators.required],  
+      email: [''],
+      mobNumber: ['']
+    });
   }
 
+  // Dummy json 
+  initialData = [
+    {name : "a", email : "a@b.com", mobNumber:  "1111"},
+    {name : "b", email : "b@c.com", mobNumber:  "2222"},
+    {name : "c", email : "c@d.com", mobNumber:  "3333"}
+  ]
+
+  // Add new row in form
+  addUser() {
+    const control = <FormArray>this.userForm.get('users');
+    control.push(this.formRowWithOutData());  
+  }
+
+  // Render initial data
   renderUser(){
     const control = <FormArray>this.userForm.get('users');
     for (let data of this.initialData ) {
-      control.push(this.initialForm(data));  
+      control.push(this.formRowWithData(data));  
     }
   }
 
+  // Remove desired user row
   remove(index: number) {
     const control = <FormArray>this.userForm.get('users');
-    
     control.removeAt(index);  
   }
 
+  // Get form data
   save() {
     console.log(this.userForm.value);
   }

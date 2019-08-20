@@ -70,11 +70,15 @@ export class UserListComponent implements OnInit {
     if (elementIndexToRemove >= 0) {
       this.rowNeedToUpdate.splice(elementIndexToRemove, 1);  
     }
-    
+
+    //console.log(elementIndexToRemove);
+    //console.log(this.rowNeedToUpdate);
+
     // Managing rows array as we remove one elemement
     for(let i=elementIndexToRemove; i< this.rowNeedToUpdate.length; i++){
-      this.rowNeedToUpdate[elementIndexToRemove] = this.rowNeedToUpdate[elementIndexToRemove] -1; 
+      this.rowNeedToUpdate[i] = this.rowNeedToUpdate[i] -1;
     }
+
     console.log(this.rowNeedToUpdate);
     
   }

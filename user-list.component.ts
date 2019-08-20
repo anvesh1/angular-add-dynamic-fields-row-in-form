@@ -63,7 +63,13 @@ export class UserListComponent implements OnInit {
     const control = <FormArray>this.userForm.get('users');
     control.removeAt(index);  
 
-    this.dataToSend.splice(index, 1);
+    // Romove Index row that are recorded as change
+    let elementIndexToRemove = this.rowNeedToUpdate.indexOf(index);
+
+    if (elementIndexToRemove >= 0) {
+      this.rowNeedToUpdate.splice(elementIndexToRemove, 1);  
+    }
+    
   }
 
   // Get form data
@@ -72,11 +78,17 @@ export class UserListComponent implements OnInit {
     console.log(this.userForm.value);
 
     // To get records that we need to update
-    console.log(this.dataToSend);
+
+    var dataToSend = [];
+    for(let i=0; i< this.rowNeedToUpdate.length; i++){
+      dataToSend.push(this.userForm.value.users[this.rowNeedToUpdate[i]]);
+    }
+
+    console.log(dataToSend);
   }
 
   // Get row only for updation
-  dataToSend = [];
+  
   rowNeedToUpdate =[];
   dataToUpdate(rowIndex:any){
     //console.log(rowIndex);
@@ -84,7 +96,7 @@ export class UserListComponent implements OnInit {
       return false;
     }
     this.rowNeedToUpdate.push(rowIndex);
-    this.dataToSend.push(this.userForm.value.users[rowIndex]);
+    
   }
   
 }

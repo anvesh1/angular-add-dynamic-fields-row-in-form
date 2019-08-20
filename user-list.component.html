@@ -17,6 +17,14 @@
           </td>
           <td  class="form-group">
             <input type="text" class="form-control" formControlName="mobNumber" placeholder="mobile number" (change)="dataToUpdate(i)">
+            <!--
+            <select class="form-control" id="mobNumber" formControlName="mobNumber" (change)="dataToUpdate(i)">
+              <option *ngFor="let c of countries" [ngValue]="c">{{ c }}</option>
+              <option value="2222">2222</option>
+              <option value="1111">1111</option>
+              <option value="3333">3333</option>
+            </select>
+          -->
           </td>
           <td>
             <button (click)="remove(i)" class="btn btn-primary mr-5">Remove</button>
